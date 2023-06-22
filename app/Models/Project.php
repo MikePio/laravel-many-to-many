@@ -26,7 +26,12 @@ class Project extends Model
     'image_original_name'
   ];
 
-  //* collegamento/relazione con la tabella type
+  //* collegamento con la tabella technologies
+  public function technologies(){ // il nome della tabella in camelCase al plurale (technologies) perché ogni project ha più technologies
+    return $this->belongsToMany(Technology::class);
+  }
+
+  //* collegamento/relazione con la tabella types
   public function type(){ // il nome della tabella in camelCase al singolare (type) perché ogni project ha un solo tipo
     // belongsTo = Appartiene a
     return $this->belongsTo(Type::class);

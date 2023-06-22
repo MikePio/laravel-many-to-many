@@ -10,6 +10,12 @@ class Technology extends Model
 {
     use HasFactory;
 
+  //* collegamento con la tabella technologies
+  public function projects(){
+    return $this->belongsToMany(Project::class);
+  }
+
+
   //* funzione per generare uno slug univoco
   public static function generateSlug($str){
 
