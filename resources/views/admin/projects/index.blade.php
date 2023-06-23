@@ -32,7 +32,13 @@
         <tr>
           <td>{{ $project->id }}</td>
           <td>{{ $project->name }}</td>
-          <td><span class="badge bg-primary">{{ $project->type?->name }}</span></td>
+          <td>
+            @if($project->type?->name)
+              <span class="badge bg-primary">{{ $project->type?->name }}</span>
+            @else
+              <span>No type</span> {{-- si può fare anche senza condizione ma se non c'è nessun dato viene stampato No type --}}
+            @endif
+          </td>
           <td>
             @forelse ($project->technologies as $technology)
               <span class="badge bg-warning">{{ $technology->name }}</span>
