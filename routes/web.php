@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'verified'])
-        //! SBAGLIATO rotte senza punto (ORMAI RESTA SBAGLIATO IN QUESTO PROGETTO)
+    //! SBAGLIATO rotte senza punto (ORMAI RESTA SBAGLIATO IN QUESTO PROGETTO)
     ->name('admin')
     //* CORRETTO rotte con il punto
     // ->name('admin.')
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->name('home');
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::resource('projects', ProjectController::class);
+        Route::resource('types', TypeController::class);
     });
 
 // Route::get('/dashboard', function () {
