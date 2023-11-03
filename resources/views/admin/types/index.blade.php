@@ -72,7 +72,7 @@
                   Are you sure you want to delete this type?
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Return back">Undo</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Return back">Back</button>
                   {{--* button per DELETE (eliminare il singolo progetto) --}}
                   <form action = "{{ route('admintypes.destroy', $type) }}" method = "POST" class="d-inline">
                     @csrf
