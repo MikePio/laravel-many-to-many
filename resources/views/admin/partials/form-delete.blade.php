@@ -20,7 +20,7 @@
         Are you sure you want to delete this project?
       </div>
       <div class="modal-footer">
-        <button title="Return back" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button title="Return back" type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Return back">Undo</button>
         {{--* button per DELETE (eliminare il singolo progetto) --}}
         <form action = "{{ route('adminprojects.destroy', $project) }}" method = "POST" class="d-inline">
           @csrf
