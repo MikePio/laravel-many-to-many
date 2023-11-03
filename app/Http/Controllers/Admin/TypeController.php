@@ -17,14 +17,14 @@ class TypeController extends Controller
      */
     public function index()
     {
-      //* vengono mostrati tutti tipi in una volta
-      // $types = Type::all();
-      //* vengono mostrati 8 tipi alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-      $types = Type::paginate(8);
-      // $types = Type::paginate(2);
+        //* vengono mostrati tutti tipi in una volta
+        // $types = Type::all();
+        //* vengono mostrati 8 tipi alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+        $types = Type::paginate(8);
+        // $types = Type::paginate(2);
 
 
-      return view('admin.types.index', compact('types'));
+        return view('admin.types.index', compact('types'));
     }
 
     /**
