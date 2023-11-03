@@ -256,6 +256,6 @@ public function store(ProjectRequest $request)
 
       //* REINDIRIZZAMENTO alla pagina index e mostro il messaggio di avvenuta eliminazione con il metodo WITH
       //* with(chiave , valore)  accetta 2 parametri. il primo è la CHIAVE della VARIABILE di SESSIONE e il secondo è il VALORE (in questo caso la frase)
-      return redirect()->route('adminprojects.index')->with('deleted', "The project: $project->name was deleted successfully");
+      return redirect()->route('adminprojects.index')->with('deleted', "The project: $project->name has been successfully deleted");
     }
 }
