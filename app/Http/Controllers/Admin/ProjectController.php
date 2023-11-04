@@ -64,7 +64,9 @@ class ProjectController extends Controller
     public function create()
     {
       $types = Type::all();
-      return view('admin.projects.create', compact('types'));
+      $technologies = Technology::all();
+
+      return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -161,6 +163,20 @@ public function store(ProjectRequest $request)
 
       // dd($request->all());
       $new_project->save();
+
+      // * soluzione lunga per fare ciò che elencato qui sotto: new Project(), fill($form_data), save()
+      // $new_project = new Project();
+      // $new_project->fill($form_data);
+      // $new_project->save();
+      // * soluzione breve per fare quello commentato sopra: new Project(), fill($form_data), save()
+      // $new_project = Project::create($form_data);
+
+      // * many-to-many -> collegamento nella tabella ponte delle tecnologie e dei progetti
+      // se ho inviato almeno un technology
+      if(array_key_exists('technologies', $form_data)){
+        // "attacco" al project appena creato l'array dei technologies proveniente dal form
+        $new_project->technologies()->attach($form_data['technologies']);
+      }
 
       //* redirect al progetto appena generato
       return redirect()->route('adminprojects.show', $new_project);

@@ -96,6 +96,28 @@
     @error('collaborators')
     <p class="text-danger">{{ $message }}</p>
   @enderror
+  {{-- * tecnologies --}}
+    <div class="mb-3" style="width: 150vh; max-width: 73vw;">
+      <p  class="form-label">Technologies</p>
+      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+          @foreach ($technologies as $technology)
+            <input
+              id="technology{{ $loop->iteration }}"
+              {{-- id="technology{{ $project?->technologies->id }}" --}}
+              class="btn-check"
+              autocomplete="off"
+              type="checkbox"
+              value="{{ $technology->id }}"
+              name="technologies[]"
+            >
+            <label class="btn btn-outline-primary" for="technology{{ $loop->iteration }}">{{ $technology->name }}</label>
+            {{-- <label class="btn btn-outline-primary" for="technology{{ $project?->technologies->id }}">{{ $technology->name }}</label> --}}
+          @endforeach
+        </div>
+      </div>
+    </div>
+
     <div class="mb-3" style="width: 150vh; max-width: 73vw;">
         <label for="description" class="form-label">Description</label>
         <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description" style="height: 200px;">{{ old('description')}}</textarea>
