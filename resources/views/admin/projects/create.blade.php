@@ -103,8 +103,9 @@
         <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
           @foreach ($technologies as $technology)
             <input
-              id="technology{{ $loop->iteration }}"
-              {{-- id="technology{{ $project?->technologies->id }}" --}}
+            id="technology{{ $technology->id }}"
+            {{-- OPPURE --}}
+            {{-- id="technology{{ $loop->iteration }}" --}}
               class="btn-check"
               autocomplete="off"
               type="checkbox"
@@ -115,15 +116,17 @@
                 checked
               @endif
 
-              {{-- ! La soluzione utilizzata qui in basso serve nel momento in cui la CREATE e l'EDIT sono all'interno di un unico file (in questo caso non funziona perché c'è ne sono 2 file distinti)--}}
+              {{-- ! La soluzione utilizzata qui in basso serve per fare l'old() nell'EDIT oppure nel momento in cui la CREATE e l'EDIT sono all'interno di un unico file (in questo caso non funziona perché c'è ne sono 2 file distinti)--}}
               {{-- @if (!$errors->any() && $project?->technologies->contains($technology))
                 checked
               @elseif ($errors->any() && in_array($technology->id, old('technologies',[])))
                 checked
               @endif --}}
             >
-            <label class="btn btn-outline-primary" for="technology{{ $loop->iteration }}">{{ $technology->name }}</label>
-            {{-- <label class="btn btn-outline-primary" for="technology{{ $project?->technologies->id }}">{{ $technology->name }}</label> --}}
+
+            <label class="btn btn-outline-primary" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
+            {{-- OPPURE --}}
+            {{-- <label class="btn btn-outline-primary" for="technology{{ $loop->iteration }}">{{ $technology->name }}</label> --}}
           @endforeach
         </div>
       </div>

@@ -172,7 +172,7 @@ public function store(ProjectRequest $request)
       // $new_project = Project::create($form_data);
 
       // * many-to-many -> collegamento nella tabella ponte delle tecnologie e dei progetti
-      // se ho inviato almeno un technology
+      // se ho cliccato almeno una technology nel file create
       if(array_key_exists('technologies', $form_data)){
         // "attacco" al project appena creato l'array dei technologies proveniente dal form
         $new_project->technologies()->attach($form_data['technologies']);
@@ -219,7 +219,8 @@ public function store(ProjectRequest $request)
     public function edit(Project $project)
     {
       $types = Type::all();
-      return view('admin.projects.edit', compact('project', 'types'));
+      $technologies = Technology::all();
+      return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -273,6 +274,16 @@ public function store(ProjectRequest $request)
       // con orario formattato (per show.blade.php)
       $end_date = date_create($project->end_date);
       $end_date_formatted = date_format($end_date, 'd/m/Y');
+
+      // * many-to-many -> collegamento nella tabella ponte delle tecnologie e dei progetti
+      // se ho cliccato almeno una technology nel file edit
+      if(array_key_exists('technologies', $form_data)){
+        // se ci sono già tecnologie selezionate le sincronizzo con le nuove selezionate (invece utilizzando attach al posto di sync vengo aggiunte nuovamente quelle selezionate in precedenza)
+        $project->technologies()->sync($form_data['technologies']);
+      }else{
+        // se non seleziono nessuna technology nel file edit elimino tutte le relazioni
+        $project->technologies()->detach();
+      }
 
       // return view('admin.projects.show', compact('project', 'start_date_formatted', 'end_date_formatted'));
       // oppure

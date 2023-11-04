@@ -110,6 +110,37 @@
     @error('collaborators')
     <p class="text-danger">{{ $message }}</p>
   @enderror
+  {{-- * tecnologies --}}
+  <div class="mb-3" style="width: 150vh; max-width: 73vw;">
+    <p  class="form-label">Technologies</p>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+      <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        @foreach ($technologies as $technology)
+          <input
+          id="technology{{ $technology->id }}"
+          {{-- OPPURE --}}
+          {{-- id="technology{{ $loop->iteration }}" --}}
+            class="btn-check"
+            autocomplete="off"
+            type="checkbox"
+            value="{{ $technology->id }}"
+            name="technologies[]"
+            {{--* aggiunto l'old alle checkbox --}}
+            @if (!$errors->any() && $project?->technologies->contains($technology))
+              checked
+            @elseif ($errors->any() && in_array($technology->id, old('technologies',[])))
+              checked
+            @endif
+          >
+
+          <label class="btn btn-outline-primary" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
+          {{-- OPPURE --}}
+          {{-- <label class="btn btn-outline-primary" for="technology{{ $loop->iteration }}">{{ $technology->name }}</label> --}}
+        @endforeach
+      </div>
+    </div>
+  </div>
+
     <div class="mb-3" style="width: 150vh; max-width: 73vw;">
         <label for="description" class="form-label">Description</label>
         <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description" style="height: 200px;">{{ old('description', $project?->description)}}</textarea>
