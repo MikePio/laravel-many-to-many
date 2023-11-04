@@ -110,6 +110,17 @@
               type="checkbox"
               value="{{ $technology->id }}"
               name="technologies[]"
+              {{--* aggiunto l'old alle checkbox --}}
+              @if (in_array($technology->id, old('technologies',[])))
+                checked
+              @endif
+
+              {{-- ! La soluzione utilizzata qui in basso serve nel momento in cui la CREATE e l'EDIT sono all'interno di un unico file (in questo caso non funziona perché c'è ne sono 2 file distinti)--}}
+              {{-- @if (!$errors->any() && $project?->technologies->contains($technology))
+                checked
+              @elseif ($errors->any() && in_array($technology->id, old('technologies',[])))
+                checked
+              @endif --}}
             >
             <label class="btn btn-outline-primary" for="technology{{ $loop->iteration }}">{{ $technology->name }}</label>
             {{-- <label class="btn btn-outline-primary" for="technology{{ $project?->technologies->id }}">{{ $technology->name }}</label> --}}
