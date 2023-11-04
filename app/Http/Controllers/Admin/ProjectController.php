@@ -12,6 +12,8 @@ use App\Http\Requests\ProjectRequest;
 use Illuminate\Support\Facades\Storage;
 //* importo la tabella types
 use App\Models\Type;
+//* importo la tabella technologies
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -32,6 +34,7 @@ class ProjectController extends Controller
       return view('admin.projects.index', compact('projects'));
     }
 
+    //* per la pagina type-projects
     public function typeProjects(){
       //* vengono mostrati tutti tipi in una volta
       // $types = Type::all();
@@ -40,6 +43,17 @@ class ProjectController extends Controller
       // $types = Type::paginate(2);
 
       return view('admin.projects.type-projects', compact('types'));
+    }
+
+    //* per la pagina technologies-projects
+    public function technologiesProjects(){
+      //* vengono mostrati tutti tecnologie in una volta
+      // $technologies = Technology::all();
+      //* vengono mostrati 8 tecnologie alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+      $technologies = Technology::paginate(8);
+      // $technologies = Technology::paginate(2);
+
+      return view('admin.projects.technologies-projects', compact('technologies'));
     }
 
     /**

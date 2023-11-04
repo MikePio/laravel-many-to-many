@@ -32,6 +32,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource('projects', ProjectController::class);
         Route::resource('types', TypeController::class);
         Route::get('type-projects', [ProjectController::class, 'typeProjects'])->name('type_projects');
+        Route::get('technologies-projects', [ProjectController::class, 'technologiesProjects'])->name('technologies_projects');
     });
 
 // Route::get('/dashboard', function () {

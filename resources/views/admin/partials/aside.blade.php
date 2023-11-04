@@ -30,13 +30,26 @@
       <li>
           <a href="{{ route('admintypes.index') }}" class="nav-link text-white {{ Request::is('admin/types') ? 'active' : '' }}">
           <svg class="bi me-2" width="16" height="16"></svg>
-          <i class="fa-solid fa-list-ul"></i> Types
+          <i class="fa-solid fa-folder"></i> Types
+          {{-- <i class="fa-solid fa-folder-open"></i> Types --}}
         </a>
       </li>
       <li>
         <a href="{{ route('admintype_projects') }}" class="nav-link text-white {{ Request::is('admin/type-projects') ? 'active' : '' }}">
           <svg class="bi me-2" width="16" height="16"></svg>
-          <i class="fa-solid fa-list-ul"></i> Types and Projects
+          <i class="fa-solid fa-folder-tree fa-lg"></i> Types and Projects
+        </a>
+      </li>
+      {{-- <li>
+        <a href="#" class="nav-link text-white {{ Request::is('admin/technologies') ? 'active' : '' }}">
+          <svg class="bi me-2" width="16" height="16"></svg>
+          <i class="fa-solid fa-desktop"></i> Technologies
+        </a>
+      </li> --}}
+      <li>
+        <a href="{{ route('admintechnologies_projects') }}" class="nav-link text-white {{ Request::is('admin/technologies-projects') ? 'active' : '' }}">
+          <svg class="bi me-0" width="0" height="16"></svg>
+          <i class="fa-solid fa-network-wired fa-xl"></i><span style="font-size: 15.5px;"> Technologies and Projects</span>
         </a>
       </li>
     </ul>
