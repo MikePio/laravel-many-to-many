@@ -37,18 +37,18 @@
       <tr>
         <td>{{ $technology->id }}</td>
         <td>
-          <form action="{{ route('admintechnologies.update', $technology) }}" method="POST">
+          {{-- ogni id deve essere univoco per ogni form ecco perché si aggiunge l'id del singolo elemento ad edit_form --> id="edit_form{{ $technology->id }}" --}}
+          <form action="{{ route('admintechnologies.update', $technology) }}" method="POST" id="edit_form{{ $technology->id }}">
             @csrf
             @method('PUT')
             <input name="name" class="border-0" type="text" value="{{ $technology->name }}">
-            </td>
-            <td>{{ count($technology->projects) }}</td>
-
-            <td>
-            {{--* button per salvare l'EDIT (la modifica del singolo technology) --}}
-            <button type="submit" title="Save and Update the Technology" class="btn btn-primary" onclick="return confirm('Confirm the edit of this technology: {{ $technology->name }}?')"><i class="fa-solid fa-floppy-disk"></i></button>
-          {{--* il form viene chiuso qui perché deve includere il button (e l'input) per fare il submit --}}
           </form>
+          </td>
+          <td>{{ count($technology->projects) }}</td>
+
+          <td>
+          {{--* button per salvare l'EDIT (la modifica del singolo technology) tramite la funzione submitEditForm --}}
+          <button onclick="submitEditForm({{ $technology->id }})" title="Save and Update the Technology" class="btn btn-primary" onclick="return confirm('Confirm the edit of this technology: {{ $technology->name }}?')"><i class="fa-solid fa-floppy-disk"></i></button>
 
           {{--* button per DELETE (eliminare il singolo technology) --}}
           <!-- Button trigger modal -->
@@ -98,5 +98,13 @@
 </div>
 
 </div>
+
+<script>
+  // * funzione per fare l'edit del form tramite un button fuori dal tag <form></form>
+  function submitEditForm(id){
+    const form = document.getElementById('edit_form' + id);
+    form.submit();
+  }
+</script>
 
 @endsection

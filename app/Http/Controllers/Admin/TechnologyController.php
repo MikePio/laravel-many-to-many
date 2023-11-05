@@ -90,9 +90,17 @@ class TechnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Technology $technology)
     {
-        //
+      $val_data = $request->validate(
+        ['name' => 'required|unique:technologies|max:50']
+      );
+
+      $val_data['slug'] = Str::slug($val_data['name']);
+      $technology->update($val_data);
+
+      // redirect per ritornare indietro con un messaggio
+      return redirect()->back()->with('message', "Technology $technology->name updated successfully");
     }
 
     /**
