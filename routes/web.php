@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +34,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource('types', TypeController::class);
         Route::get('type-projects', [ProjectController::class, 'typeProjects'])->name('type_projects');
         Route::get('technologies-projects', [ProjectController::class, 'technologiesProjects'])->name('technologies_projects');
+        Route::resource('technologies', TechnologyController::class);
     });
 
 // Route::get('/dashboard', function () {

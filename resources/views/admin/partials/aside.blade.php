@@ -40,12 +40,12 @@
           <i class="fa-solid fa-folder-tree fa-lg"></i> Types and Projects
         </a>
       </li>
-      {{-- <li>
-        <a href="#" class="nav-link text-white {{ Request::is('admin/technologies') ? 'active' : '' }}">
+      <li>
+        <a href="{{ route('admintechnologies.index') }}" class="nav-link text-white {{ Request::is('admin/technologies') ? 'active' : '' }}">
           <svg class="bi me-2" width="16" height="16"></svg>
           <i class="fa-solid fa-desktop"></i> Technologies
         </a>
-      </li> --}}
+      </li>
       <li>
         <a href="{{ route('admintechnologies_projects') }}" class="nav-link text-white {{ Request::is('admin/technologies-projects') ? 'active' : '' }}">
           <svg class="bi me-0" width="0" height="16"></svg>

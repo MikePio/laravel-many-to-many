@@ -300,6 +300,9 @@ public function store(ProjectRequest $request)
      */
     public function destroy(Project $project)
     {
+      // * delete many-to-many
+      // se nella migration non ho messo cascadeOnDelete devo fare
+      // $post->tags()->detach();
 
       //* se il project da eliminare contiene un immagine, quest'ultima deve essere cancellata anche nella cartella
       if($project->image_path){
