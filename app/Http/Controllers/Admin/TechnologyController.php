@@ -44,7 +44,21 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $val_data = $request->validate(
+        ['name' => 'required|unique:technologies|max:50']
+      );
+
+      $val_data['slug'] = Str::slug($val_data['name']);
+
+      // * soluzione lunga per fare ciò che elencato qui sotto: new Project(), fill($form_data), save()
+      // $new_technology = new Technology();
+      // $new_technology->fill($val_data);
+      // $new_technology->save();
+      // * soluzione breve per fare quello commentato sopra: new Project(), fill($form_data), save()
+      $new_technology = Technology::create($val_data);
+
+      // redirect per ritornare indietro con un messaggio
+      return redirect()->back()->with('message', "Technology $new_technology->name created");
     }
 
     /**
