@@ -52,14 +52,14 @@
 
           {{--* button per DELETE (eliminare il singolo technology) --}}
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#type{{ $technology->id }}" title="Delete technology">
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#technology{{ $technology->id }}" title="Delete technology">
           {{-- OPPURE --}}
           {{-- <button type="button" class="btn btn-danger d-inline" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Delete technology" style="padding: 6px 12px; width: 42px; height: 38px; display: inline-block;"> --}}
             <i class = "fa-solid fa-trash d-inline"></i>
           </button>
 
           <!-- Modal -->
-          <div class="modal fade text-black" id="type{{ $technology->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade text-black" id="technology{{ $technology->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           {{-- OPPURE --}}
           {{-- <div class="modal fade text-black" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> --}}
             <div class="modal-dialog">
@@ -74,7 +74,7 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Return back">Back</button>
                   {{--* button per DELETE (eliminare il singolo progetto) --}}
-                  <form action = "{{ route('admintypes.destroy', $technology) }}" method = "POST" class="d-inline">
+                  <form action = "{{ route('admintechnologies.destroy', $technology) }}" method = "POST" class="d-inline">
                     @csrf
                     {{--* aggiungere DELETE perchè non è possibile inserire PUT/PATCH nel method del form al posto di POST --}}
                     @method('DELETE')

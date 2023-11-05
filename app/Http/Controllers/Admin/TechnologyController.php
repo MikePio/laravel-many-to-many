@@ -109,8 +109,13 @@ class TechnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Technology $technology)
     {
-        //
+      // * delete many-to-many
+      // se nella migration non ho messo cascadeOnDelete devo fare
+      // $post->tags()->detach();
+
+      $technology->delete();
+      return redirect()->back()->with('message', "Technology $technology->name deleted successfully");
     }
 }
