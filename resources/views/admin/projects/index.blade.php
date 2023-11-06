@@ -39,7 +39,7 @@
               <span>No type</span> {{-- si può fare anche senza condizione ma se non c'è nessun dato viene stampato No type --}}
             @endif
           </td>
-          <td>
+          <td style="width: 20% !important;">
             @forelse ($project->technologies as $technology)
               <span class="badge bg-warning">{{ $technology->name }}</span>
             @empty
@@ -53,7 +53,7 @@
           <td>{{ date_format($date, 'd/m/Y') }}</td>
           <td>{{ $project->produced_for }}</td>
 
-          <td>
+          <td style="width: 15% !important;">
             {{--* button per SHOW (mostrare il singolo progetto) --}}
             <a href="{{ route('adminprojects.show', $project) }}" class="btn btn-primary"><i class="fa-regular fa-eye"></i></a>
             {{-- OPPURE --}}

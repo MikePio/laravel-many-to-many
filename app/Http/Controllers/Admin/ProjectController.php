@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Type;
 //* importo la tabella technologies
 use App\Models\Technology;
+//* importando Facades\DB è possibile fare delle query pure in SQL senza utilizzare eloquent (vedi esempio della query per la barra di ricerca)
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -24,14 +26,40 @@ class ProjectController extends Controller
      */
     public function index()
     {
-      //* vengono mostrati tutti progetti in una volta
-      // $projects = Project::all();
-      //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-      $projects = Project::paginate(8);
-      // $projects = Project::paginate(2);
 
+      // //* vengono mostrati tutti progetti in una volta
+      // // $projects = Project::all();
+      // //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+      // $projects = Project::paginate(8);
+      // // $projects = Project::paginate(2);
 
-      return view('admin.projects.index', compact('projects'));
+      $direction = 'asc';
+
+      //* Ricerca per nome dei progetti
+      //* verifico se è presente la variabile search in GET
+      if(isset($_GET['search'])){
+
+        $toSearch = $_GET['search'];
+
+        //* faccio la query con LIKE per vedere se è presente un progetto che include la parola inserita
+        $projects = Project::where('name', 'like', "%$toSearch%")
+                              //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+                              ->paginate(8);
+      //* se non c'è la variabile search in GET faccio la query di tutti i progetti con la paginazione
+      }else{
+        //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+        $projects = Project::orderBy('id',$direction)->paginate(8);
+      }
+
+      //* importando Facades\DB è possibile fare delle query pure in SQL senza utilizzare eloquent (vedi esempio della query per la barra di ricerca)
+      // ! attenzione: credo ci sia bisogno anche di collegare i progetti con i tipi e le tecnologie
+      // esempi del prof
+      // $projects = DB::search('SELECT * FROM `projects`');
+      // esempi chat gpt
+      // $projects = DB::select("SELECT * FROM projects WHERE name LIKE '%$toSearch%' LIMIT 8");
+      // $projects = DB::select('SELECT * FROM projects WHERE name LIKE ? LIMIT 8', ["%$toSearch%"]);
+
+      return view('admin.projects.index', compact('projects', 'direction'));
     }
 
     //* per la pagina type-projects

@@ -25,6 +25,21 @@
                     </li> --}}
                 </ul>
 
+                <ul class="navbar-nav me-auto">
+                  <li class="d-flex align-items-center">
+                    {{-- * input per la ricerca dei progetti per nome --}}
+                    <form action="{{ route('adminprojects.index') }}" class="d-flex" method="GET">
+                      <input
+                        class="form-control me-2"
+                        name="search"
+                        type="text"
+                        placeholder="Search for a project"
+                      >
+                      <button class="btn btn-primary me-3"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                  </li>
+                </ul>
+
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
