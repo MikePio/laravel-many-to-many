@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Type;
 //* importo la tabella technologies
 use App\Models\Technology;
+//* importo Auth per capire quale utente è loggato
+use Illuminate\Support\Facades\Auth;
 //* importando Facades\DB è possibile fare delle query pure in SQL senza utilizzare eloquent (vedi esempio della query per la barra di ricerca)
 use Illuminate\Support\Facades\DB;
 
@@ -41,14 +43,18 @@ class ProjectController extends Controller
 
         $toSearch = $_GET['search'];
 
-        //* faccio la query con LIKE per vedere se è presente un progetto che include la parola inserita
-        $projects = Project::where('name', 'like', "%$toSearch%")
-                              //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-                              ->paginate(8);
+        //* controllo che l'utente possa ricercare solo i progetti suoi ed non di altri utenti
+        $projects = Project::where('user_id', Auth::id())
+                        //* faccio la query con LIKE per vedere se è presente un progetto che include la parola inserita
+                        ->where('name', 'like', "%$toSearch%")
+                        //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+                        ->paginate(8);
       //* se non c'è la variabile search in GET faccio la query di tutti i progetti con la paginazione
       }else{
-        //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-        $projects = Project::orderBy('id',$direction)->paginate(8);
+        // * controllo che l'utente possa ricercare solo i progetti suoi ed non di altri utenti
+        $projects = Project::where('user_id', Auth::id())
+                  //* vengono mostrati 8 progetti alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+                  ->orderBy('id',$direction)->paginate(8);
       }
 
       //* importando Facades\DB è possibile fare delle query pure in SQL senza utilizzare eloquent (vedi esempio della query per la barra di ricerca)
