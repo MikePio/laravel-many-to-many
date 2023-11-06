@@ -192,6 +192,10 @@ public function store(ProjectRequest $request)
       //*soluzione 2 con fillable (collegata al model Project.php)
       // lo slug deve essere generato in modo automatico ogni volta che viene creato un nuovo prodotto quindi è stata creata un funzione nel model
       $form_data['slug'] = Project::generateSlug($form_data['name']);
+
+      //* serve per salvare l'id dell'user loggato nel campo user_id nella tabella projects
+      $form_data['user_id'] = Auth::id();
+
       // con fill i dati vengono salvati tramite le chiavi salvate nel model in protected $fillable in modo da fare l'associazione chiave-valore automaticamente
       $new_project->fill($form_data);
 
