@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 // importo il modello dei progetti
 use App\Models\Project;
+//* importo Auth per capire quale utente è loggato
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,8 +15,8 @@ class DashboardController extends Controller
         return view('admin.home');
     }
     public function dashboard(){
-      // numero di progetti presenti
-      $n_projects = Project::all()->count();
+      // numero di progetti presenti //* dell'user loggato
+      $n_projects = Project::where('user_id', Auth::id())->count();
       // dd($n_projects);
 
       //* ultimo progetto presente
@@ -22,7 +24,8 @@ class DashboardController extends Controller
       // OPPURE CON orderByDesc
       // $last_project = Project::orderByDesc('id')->first();
       // OPPURE CON "latest" che viene utilizzato per ordinare i risultati di una query in base alla colonna con data e ora più recenti
-      $last_project = Project::latest()->first();
+      $last_project = Project::where('user_id', Auth::id()) // controllo che l'utente possa vedere solo il suo ultimo progetto e non di altri utenti
+                              ->latest()->first(); // CON "latest" che viene utilizzato per ordinare i risultati di una query in base alla colonna con data e ora più recenti
       // dd($last_project);
 
       // con orario formattato

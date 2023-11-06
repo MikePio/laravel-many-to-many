@@ -228,8 +228,19 @@ public function store(ProjectRequest $request)
      */
     //* metodo migliore
     //! MA BISOGNA USARE IL PARAMETRO DI DEFAULT (in questo caso $dCComic) e non può essere modificato
-    public function show(Project $project)
+    public function show($id)
     {
+
+      //* controllo che l'utente possa vedere solo i sui progetti e non di altri utenti
+      $project = Project::where('id', $id)
+                    ->where('user_id', Auth::id())
+                    ->first();
+
+      //* se cerco nell'url un project che non esiste o che è di un altro utente mostro una pagina con l'errore 404 (al posto di una pagina di errore php)
+      if(!$project){
+        abort('404');
+      }
+
       // con orario formattato (per show.blade.php)
       $start_date = date_create($project->start_date);
       $start_date_formatted = date_format($start_date, 'd/m/Y');
