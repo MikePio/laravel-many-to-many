@@ -381,8 +381,8 @@ public function store(ProjectRequest $request)
     public function destroy(Project $project)
     {
       // * delete many-to-many
-      // se nella migration non ho messo cascadeOnDelete devo fare
-      // $post->tags()->detach();
+      // se nella migration non ho messo cascadeOnDelete e devo fare un eliminazione totale (NON soft) di un oggetto/elemento //* MA è MEGLIO INSERIRE cascadeOnDelete nella migration e utilizzarlo solo se c'è bisogno di eliminare i collegamenti nelle tabelle ponte delle many-to-many all'eliminazione di un oggetto/elemento
+      // $project->technologies()->detach(); //* SE è STATO ATTIVATO IL SOFT DELETE - Serve per eliminare i collegamenti nelle tabelle ponte quando viene eliminato un oggetto/elemento di una tabella many-to-many / se NON è STATO ATTIVATO IL SOFT DELETE c'è bisogno solo di INSERIRE cascadeOnDelete nella migration
 
       //* se il project da eliminare contiene un immagine, quest'ultima deve essere cancellata anche nella cartella
       if($project->image_path){
