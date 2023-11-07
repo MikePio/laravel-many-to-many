@@ -89,10 +89,10 @@ class ProjectController extends Controller
 
       //* ottenere progetti collegati ai type dell'utente loggato - Soluzione 3 MIGLIORE DI TUTTE step 1/1 - ottenere i tipi, INCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
       // Ottieni l'utente loggato
-      $user = Auth::user();
+      $user = Auth::user(); // Auth::user() restituisce l'oggetto dell'utente attualmente autenticato nel sistema
 
       // Carica tutti i tipi, inclusi quelli senza collegamenti con progetti
-      $types = Type::with(['projects' => function ($query) use ($user) {
+      $types = Type::with(['projects' => function ($query) use ($user) { // 'projects' viene dalla funzione dichiarata nel model Type
         // Filtra solo i progetti dell'utente loggato
         $query->where('user_id', $user->id);
       }])->paginate(8);
@@ -102,11 +102,21 @@ class ProjectController extends Controller
 
     //* per la pagina technologies-projects
     public function technologiesProjects(){
-      //* vengono mostrati tutti tecnologie in una volta
-      // $technologies = Technology::all();
-      //* vengono mostrati 8 tecnologie alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-      $technologies = Technology::paginate(8);
-      // $technologies = Technology::paginate(2);
+      // //* vengono mostrati tutti tecnologie in una volta
+      // // $technologies = Technology::all();
+      // //* vengono mostrati 8 tecnologie alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+      // $technologies = Technology::paginate(8);
+      // // $technologies = Technology::paginate(2);
+
+      //* ottenere progetti collegati ai technologies dell'utente loggato - Soluzione 3 MIGLIORE DI TUTTE step 1/1 - ottenere i technologies, INCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
+      // Ottieni l'utente loggato
+      $user = Auth::user(); // Auth::user() restituisce l'oggetto dell'utente attualmente autenticato nel sistema
+
+      // Carica tutte le technologies, incluse quelle senza collegamenti con progetti
+      $technologies = Technology::with(['projects' => function ($query) use ($user) { // 'projects' viene dalla funzione dichiarata nel model Technology
+        // Filtra solo i progetti dell'utente loggato
+        $query->where('user_id', $user->id);
+      }])->paginate(8);
 
       return view('admin.projects.technologies-projects', compact('technologies'));
     }
