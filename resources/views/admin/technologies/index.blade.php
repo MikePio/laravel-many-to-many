@@ -17,7 +17,7 @@
 <form action="{{ route('admintechnologies.store') }}" method="POST">
   <div class="input-group mb-3">
     @csrf
-    <input name="name" type="text" class="form-control" placeholder="Enter a type name" aria-label="Enter a type name">
+    <input name="name" type="text" class="form-control" placeholder="Enter a technology name" aria-label="Enter a technology name">
     <button class="btn btn-primary" type="submit">Add Technology</button>
   </div>
 </form>
@@ -44,7 +44,10 @@
             <input name="name" class="border-0" type="text" value="{{ $technology->name }}">
           </form>
           </td>
-          <td>{{ count($technology->projects) }}</td>
+            {{-- * numero progetti appartenenti ad un technology di tutti gli utenti  --}}
+            {{-- <td>{{ count($technology->projects) }}</td> --}}
+            {{-- * numero progetti appartenenti ad un technology dell'utente che ha fatto il login --}}
+            <td>{{ $technology->projects->where('user_id', Auth::id())->count() }}</td>
 
           <td>
           {{--* button per salvare l'EDIT (la modifica del singolo technology) tramite la funzione submitEditForm --}}

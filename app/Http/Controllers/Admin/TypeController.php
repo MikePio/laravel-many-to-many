@@ -24,7 +24,7 @@ class TypeController extends Controller
         $types = Type::paginate(8);
         // $types = Type::paginate(2);
 
-        //* ottenere solo i type con un numero di progetti che è > 0 collegati ai type dell'utente loggato
+        //* ottenere solo le tipologie con più di 0 progetti associati, il che significa che hanno almeno un progetto collegato a una tipologia dell'utente loggato
         // Seleziona solo i tipi che hanno progetti associati all'utente corrente
         // $types = Type::whereHas('projects', function ($query) { // 'projects' viene dalla funzione dichiarata nel model Type
         //   $query->where('user_id', Auth::id()); // Filtra i tipi con progetti dell'utente corrente

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 // importo la tabella Technology
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class TechnologyController extends Controller
@@ -17,11 +18,19 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-      //* vengono mostrati tutti tecnologie in una volta
-      // $technologies = Technology::all();
-      //* vengono mostrati 8 tecnologie alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-      $technologies = Technology::paginate(8);
-      // $technologies = Technology::paginate(2);
+      // //* vengono mostrati tutti tecnologie in una volta
+      // // $technologies = Technology::all();
+      // //* vengono mostrati 8 tecnologie alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+      // $technologies = Technology::paginate(8);
+      // // $technologies = Technology::paginate(2);
+
+      //* ottenere solo le tecnologie con più di 0 progetti associati, il che significa che hanno almeno un progetto collegato a una tecnologia dell'utente loggato
+      // Seleziona solo i technologies che hanno progetti associati all'utente corrente
+      $technologies = Technology::whereHas('projects', function ($query) { // 'projects' viene dalla funzione dichiarata nel model Technology
+        $query->where('user_id', Auth::id()); // Filtra i technologies con progetti dell'utente corrente
+      })->with(['projects' => function ($query) { // 'projects' viene dalla funzione dichiarata nel model Technology
+        $query->where('user_id', Auth::id()); // Carica solo i progetti dell'utente corrente all'interno di ciascun tipo
+      }])->paginate(8);
 
       return view('admin.technologies.index', compact('technologies'));
     }
