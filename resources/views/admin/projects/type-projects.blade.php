@@ -23,7 +23,12 @@
         <td class=" py-0 my-0">
           <ul class="list-unstyled py-0 my-0">
             @forelse ($type->projects as $project)
+              {{-- * progetti appartenenti ad un type di tutti gli utenti ma grazie alla query nel controller vengono mostrati solo quelli dell'utente loggato --}}
               <li class="@if (!$loop->first) border-top @endif h-100 py-2 my-0">- <a href="{{ route('adminprojects.show', $project) }}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{ $project->name }}</a></li>
+              {{--* soluzione alternativa peggiore - facendo una query che ottiene tutti i progetti, si ottiene numero progetti appartenenti ad un type dell'utente che ha fatto il login (non compare il messaggio "There are not projects" se non ci sono progetti associati al type) --}}
+              {{-- @if ($project->user_id === Auth::id())
+                <li class="h-100 py-2 my-0">- <a href="{{ route('adminprojects.show', $project) }}" class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{ $project->name }}</a></li>
+              @endif --}}
             @empty
               <li class="py-2 my-0">There are not projects</li>
             @endforelse

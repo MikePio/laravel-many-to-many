@@ -70,11 +70,32 @@ class ProjectController extends Controller
 
     //* per la pagina type-projects
     public function typeProjects(){
-      //* vengono mostrati tutti tipi in una volta
-      // $types = Type::all();
-      //* vengono mostrati 8 tipi alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
-      $types = Type::paginate(8);
-      // $types = Type::paginate(2);
+      // //* vengono mostrati tutti tipi in una volta
+      // // $types = Type::all();
+      // //* vengono mostrati 8 tipi alla volta (per far ciò è necessario importare bootstrap in AppServiceProvider)
+      // $types = Type::paginate(8);
+      // // $types = Type::paginate(2);
+
+      //* ottenere progetti collegati ai type dell'utente loggato - Soluzione 1 Peggiore step 2/2 - ottenere solo i tipi, ESCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
+      // $types = Type::with('projects')->has('projects')->paginate(8); // 'projects' viene dalla funzione dichiarata nel model Type
+
+      //* ottenere progetti collegati ai type dell'utente loggato - Soluzione 2 Quasi Migliore step 1/1 - ottenere solo i tipi, ESCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
+      // Seleziona solo i tipi che hanno progetti associati all'utente corrente
+      // $types = Type::whereHas('projects', function ($query) { // 'projects' viene dalla funzione dichiarata nel model Type
+      //   $query->where('user_id', Auth::id()); // Filtra i tipi con progetti dell'utente corrente
+      // })->with(['projects' => function ($query) { // 'projects' viene dalla funzione dichiarata nel model Type
+      //   $query->where('user_id', Auth::id()); // Carica solo i progetti dell'utente corrente all'interno di ciascun tipo
+      // }])->paginate(8);
+
+      //* ottenere progetti collegati ai type dell'utente loggato - Soluzione 3 MIGLIORE DI TUTTE step 1/1 - ottenere i tipi, INCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
+      // Ottieni l'utente loggato
+      $user = Auth::user();
+
+      // Carica tutti i tipi, inclusi quelli senza collegamenti con progetti
+      $types = Type::with(['projects' => function ($query) use ($user) {
+        // Filtra solo i progetti dell'utente loggato
+        $query->where('user_id', $user->id);
+      }])->paginate(8);
 
       return view('admin.projects.type-projects', compact('types'));
     }

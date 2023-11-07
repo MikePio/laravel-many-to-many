@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Type extends Model
@@ -16,6 +17,10 @@ class Type extends Model
   public function projects(){ // il nome della tabella in camelCase al plurale (projects) perché ogni ogni type ha più progetti
     // ogni type ha più progetti
     return $this->hasMany(Project::class);
+
+    //* ottenere progetti collegati ai type dell'utente loggato - Soluzione 1 step 2/2 - ottenere solo i tipi, ESCLUSI quelli che non hanno collegamenti con progetti per l'utente loggato
+    // ogni type ha più progetti //* che appartengono all'id loggato
+    // return $this->hasMany(Project::class)->where('user_id', Auth::id());
   }
 
     //* funzione per generare uno slug univoco
