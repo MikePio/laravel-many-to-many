@@ -42,7 +42,10 @@
             @method('PUT')
             <input name="name" class="border-0" type="text" value="{{ $type->name }}">
             </td>
-            <td>{{ count($type->projects) }}</td>
+            {{-- * numero progetti appartenenti ad un type di tuttigli utenti  --}}
+            {{-- <td>{{ count($type->projects) }}</td> --}}
+            {{-- * numero progetti appartenenti ad un type dell'utente che ha fatto il login --}}
+            <td>{{ $type->projects->where('user_id', Auth::id())->count() }}</td>
 
             <td>
             {{--* button per salvare l'EDIT (la modifica del singolo type) --}}

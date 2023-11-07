@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 // importo la tabella Type
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Str;
 
 class TypeController extends Controller
@@ -23,6 +24,13 @@ class TypeController extends Controller
         $types = Type::paginate(8);
         // $types = Type::paginate(2);
 
+        //* ottenere solo i type con un numero di progetti che è > 0 collegati ai type dell'utente loggato
+        // Seleziona solo i tipi che hanno progetti associati all'utente corrente
+        // $types = Type::whereHas('projects', function ($query) { // 'projects' viene dalla funzione dichiarata nel model Type
+        //   $query->where('user_id', Auth::id()); // Filtra i tipi con progetti dell'utente corrente
+        // })->with(['projects' => function ($query) { // 'projects' viene dalla funzione dichiarata nel model Type
+        //   $query->where('user_id', Auth::id()); // Carica solo i progetti dell'utente corrente all'interno di ciascun tipo
+        // }])->paginate(8);
 
         return view('admin.types.index', compact('types'));
     }
