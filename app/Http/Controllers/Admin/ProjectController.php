@@ -68,6 +68,26 @@ class ProjectController extends Controller
       return view('admin.projects.index', compact('projects', 'direction'));
     }
 
+    //* funzione per ordinare in modo asc/ascendente e desc/discendente le colonne nella pagina index dei progetti
+    public function orderby($direction, $column){
+
+      // if ($direction == 'asc') {
+      //   //* Se la direzione è ascendente, imposta la direzione a discendente
+      //   $direction = 'desc';
+      // } else {
+      //   //* Se la direzione è discendente, imposta la direzione ad ascendente
+      //   $direction = 'asc';
+      // }
+      // OPPURE
+      $direction = $direction == 'asc' ? 'desc' : 'asc';
+
+      $projects = Project::where('user_id', Auth::id())
+                          ->orderBy($column, $direction)
+                          ->paginate(8);
+
+      return view('admin.projects.index', compact('projects', 'direction', 'column'));
+    }
+
     //* per la pagina type-projects
     public function typeProjects(){
       // //* vengono mostrati tutti tipi in una volta

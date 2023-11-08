@@ -16,7 +16,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ route('adminprojects.index') }}" class="nav-link text-white {{ Request::is('admin/projects') ? 'active' : '' }}">
+        <a href="{{ route('adminprojects.index') }}" class="nav-link text-white {{ Request::is('admin/projects') || Request::is('admin/projects/orderby/**') ? 'active' : '' }}">
           <svg class="bi me-2" width="16" height="16"></svg>
           <i class="fa-solid fa-list-ul"></i> Project list
         </a>

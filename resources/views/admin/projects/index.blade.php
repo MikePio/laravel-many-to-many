@@ -16,12 +16,12 @@
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr class="">
-        <th scope="col">#ID</th>
-        <th scope="col">Name</th>
+        <th scope="col" style="min-width: 60px"><a href="{{ route('admin.projects.orderby', ['direction' => $direction, 'column' => 'id'] ) }}" class="link-offset-2 link-underline" >#ID <i class="fa-solid fa-caret-{{ $direction == 'desc' && $column == 'id' ? 'up' : 'down' }}"></i></a></th>
+        <th scope="col"><a href="{{ route('admin.projects.orderby', ['direction' => $direction, 'column' => 'name'] ) }}" class="link-offset-2 link-underline" >Name <i class="fa-solid fa-caret-{{ $direction == 'desc' && $column == 'name' ? 'up' : 'down' }}"></i></a></th>
         <th scope="col">Type</th>
         <th scope="col">Technology</th>
         <th scope="col">Category</th>
-        <th scope="col">Start date</th>
+        <th scope="col" style="min-width: 110px"><a href="{{ route('admin.projects.orderby', ['direction' => $direction, 'column' => 'start_date'] ) }}" class="link-offset-2 link-underline" >Start date <i class="fa-solid fa-caret-{{ $direction == 'desc' && $column == 'start_date' ? 'up' : 'down' }}"></i></a></th>
         <th scope="col">Produced for</th>
         <th scope="col">Actions</th>
       </tr>

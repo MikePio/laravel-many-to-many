@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('type-projects', [ProjectController::class, 'typeProjects'])->name('type_projects');
         Route::get('technologies-projects', [ProjectController::class, 'technologiesProjects'])->name('technologies_projects');
         Route::resource('technologies', TechnologyController::class);
+        Route::get('projects/orderby/{direction}/{column}', [ProjectController::class, 'orderby'])->name('.projects.orderby');
     });
 
 // Route::get('/dashboard', function () {
