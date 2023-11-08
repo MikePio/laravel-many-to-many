@@ -25,44 +25,46 @@
                     </li> --}}
                 </ul>
 
-                <ul class="navbar-nav me-auto">
-                  <li class="d-flex align-items-center">
-                    {{-- * input per la ricerca dei progetti per nome --}}
-                    <form action="{{ route('adminprojects.index') }}" class="d-flex" method="GET">
-                      <input
-                        class="form-control me-2"
-                        name="search"
-                        type="text"
-                        placeholder="Search for a project"
-                      >
-                      <button class="btn btn-primary me-3"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                  </li>
-                </ul>
+                @auth
+                  <ul class="navbar-nav me-auto">
+                    <li class="d-flex align-items-center">
+                      {{-- * input per la ricerca dei progetti per nome --}}
+                      <form action="{{ route('adminprojects.index') }}" class="d-flex" method="GET">
+                        <input
+                          class="form-control me-2"
+                          name="search"
+                          type="text"
+                          placeholder="Search for a project"
+                        >
+                        <button class="btn btn-primary me-3"><i class="fa-solid fa-magnifying-glass"></i></button>
+                      </form>
+                    </li>
+                  </ul>
+                @endauth
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                    <li class="nav-item ">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                    @endif
-                    @else
-                    <li class="d-flex align-items-center">
-                      <h5 class="mx-3 pt-2">{{ Auth::user()->name }}</h5>
-                      {{-- per il logout deve essere sempre presente il Form  --}}
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                          {{-- token di sicurezza --}}
-                            @csrf
-                            <button class="btn btn-primary" type="submit" ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-                        </form>
-                        </div>
-                    </li>
+                      <li class="nav-item ">
+                          <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                      </li>
+                      @if (Route::has('register'))
+                      <li class="nav-item">
+                          <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+                      </li>
+                      @endif
+                      @else
+                      <li class="d-flex align-items-center">
+                        <h5 class="mx-3 pt-2">{{ Auth::user()->name }}</h5>
+                        {{-- per il logout deve essere sempre presente il Form  --}}
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            {{-- token di sicurezza --}}
+                              @csrf
+                              <button class="btn btn-primary" type="submit" ><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                          </form>
+                          </div>
+                      </li>
                     @endguest
                 </ul>
             </div>
