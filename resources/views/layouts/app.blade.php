@@ -36,7 +36,7 @@
 
         <main class="d-flex">
 
-          @include('guest.partials.aside')
+          @include('admin.partials.aside')
           @yield('content')
 
         </main>
