@@ -19,8 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//* rotte dei guest/utenti non loggati
 Route::get('/', [PageController::class, 'index'])->name('home');
+Route::get('/projects', [PageController::class, 'projects'])->name('projects');
+Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 
+//* rotte degli admin/utenti loggati
 Route::middleware(['auth', 'verified'])
     //! SBAGLIATO rotte senza punto (ORMAI RESTA SBAGLIATO IN QUESTO PROGETTO)
     ->name('admin')

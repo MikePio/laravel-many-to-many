@@ -31,11 +31,12 @@
 <body>
     <div id="app">
 
+      {{--* viene utilizzato lo stesso dell'admin  --}}
       @include('admin.partials.header')
 
         <main class="d-flex">
 
-          @include('admin.partials.aside')
+          @include('guest.partials.aside')
           @yield('content')
 
         </main>
