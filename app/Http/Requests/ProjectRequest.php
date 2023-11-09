@@ -53,7 +53,7 @@ class ProjectRequest extends FormRequest
 
           'start_date.date' => 'The start date was written incorrectly',
 
-          'end_date.date' => 'The start date was written incorrectly',
+          'end_date.date' => 'The end date was written incorrectly',
 
           'url.required' => 'The url field is required',
           'url.min' => 'The url field must be at least :min characters',

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 @section('content')
     <div class="container overflow-auto p-5 text-center" style="max-height: calc(100vh - 70.24px);">
         {{-- <h1>Home guest</h1> --}}
@@ -21,7 +21,8 @@
                             <h5>
                                 {{ $project->name }}
                             </h5>
-                            <p>{{ $project->type->name }}</p>
+                            <p class="badge bg-primary mb-1">{{ $project->type?->name ?? 'No type' }}</p>
+                            {{-- <div>{{ $project->category ?? 'No category' }}</div> --}}
                             {{-- @php
                             $date = date_create($project->start_date);
                             @endphp

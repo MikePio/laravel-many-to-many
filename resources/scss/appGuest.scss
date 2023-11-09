@@ -6,10 +6,10 @@ body{
 }
 
 //* per dare un limite di max di caratteri e stampare i ... alla fine
-// .custom-card-text{
-//   overflow: hidden;
-//   display: -webkit-box;
-//   -webkit-box-orient: vertical;
-//   -webkit-line-clamp: 3; /* start showing ellipsis when 3rd line is reached */
-//   white-space: pre-wrap; /* let the text wrap preserving spaces */
-// }
+.custom-card-text{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* start showing ellipsis when 3rd line is reached */
+  white-space: pre-wrap; /* let the text wrap preserving spaces */
+}
